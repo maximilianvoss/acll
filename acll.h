@@ -18,6 +18,7 @@
 #define ACLL_ACLL_H
 
 #include <stdlib.h>
+#include <stdint.h>
 
 typedef struct acll_s {
     struct acll_s *prev;
