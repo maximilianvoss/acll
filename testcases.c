@@ -28,7 +28,7 @@ static int test_acll_append_1(void *data) {
     acll_t *list = NULL;
     list = acll_append(list, "element 0");
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 0", list->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
     ASSERTNULL(list->prev);
     ASSERTNULL(list->next);
     return 0;
@@ -39,9 +39,9 @@ static int test_acll_append_2(void *data) {
     list = acll_append(list, "element 0");
     list = acll_append(list, "element 1");
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
-    ASSERTSTR("element 0", list->next->prev->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
+    ASSERTSTR("element 0", (char *) list->next->prev->payload);
     ASSERTNULL(list->prev);
     ASSERTNULL(list->next->next);
     return 0;
@@ -60,7 +60,7 @@ static int test_acll_first_1(void *data) {
 
     acll_t *ptr = acll_first(list);
     ASSERTNOTNULL(ptr);
-    ASSERTSTR("element 0", ptr->payload);
+    ASSERTSTR("element 0", (char *) ptr->payload);
     return 0;
 }
 
@@ -71,7 +71,7 @@ static int test_acll_first_2(void *data) {
 
     acll_t *ptr = acll_first(list->next);
     ASSERTNOTNULL(ptr);
-    ASSERTSTR("element 0", ptr->payload);
+    ASSERTSTR("element 0", (char *) ptr->payload);
     return 0;
 }
 
@@ -88,7 +88,7 @@ static int test_acll_last_1(void *data) {
 
     acll_t *ptr = acll_last(list);
     ASSERTNOTNULL(ptr);
-    ASSERTSTR("element 1", ptr->payload);
+    ASSERTSTR("element 1", (char *) ptr->payload);
     return 0;
 }
 
@@ -99,7 +99,7 @@ static int test_acll_last_2(void *data) {
 
     acll_t *ptr = acll_last(list->next);
     ASSERTNOTNULL(ptr);
-    ASSERTSTR("element 1", ptr->payload);
+    ASSERTSTR("element 1", (char *) ptr->payload);
     return 0;
 }
 
@@ -125,19 +125,19 @@ static int test_acll_pop_1(void *data) {
     list = acll_pop(list, (void **) &payload);
     ASSERTNOTNULL(list);
     ASSERTNOTNULL(payload);
-    ASSERTSTR("element 0", payload);
-    ASSERTSTR("element 1", list->payload);
+    ASSERTSTR("element 0", (char *) payload);
+    ASSERTSTR("element 1", (char *) list->payload);
 
     list = acll_pop(list, (void **) &payload);
     ASSERTNOTNULL(list);
     ASSERTNOTNULL(payload);
-    ASSERTSTR("element 1", payload);
-    ASSERTSTR("element 2", list->payload);
+    ASSERTSTR("element 1", (char *) payload);
+    ASSERTSTR("element 2", (char *) list->payload);
 
     list = acll_pop(list, (void **) &payload);
     ASSERTNULL(list);
     ASSERTNOTNULL(payload);
-    ASSERTSTR("element 2", payload);
+    ASSERTSTR("element 2", (char *) payload);
 
     return 0;
 }
@@ -153,7 +153,7 @@ static int test_acll_push_1(void *data) {
     acll_t *list = NULL;
     list = acll_push(list, "element 0");
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 0", list->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
     ASSERTNULL(list->prev);
     ASSERTNULL(list->next);
     return 0;
@@ -164,9 +164,9 @@ static int test_acll_push_2(void *data) {
     list = acll_push(list, "element 0");
     list = acll_push(list, "element 1");
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 1", list->payload);
-    ASSERTSTR("element 0", list->next->payload);
-    ASSERTSTR("element 1", list->next->prev->payload);
+    ASSERTSTR("element 1", (char *) list->payload);
+    ASSERTSTR("element 0", (char *) list->next->payload);
+    ASSERTSTR("element 1", (char *) list->next->prev->payload);
     ASSERTNULL(list->prev);
     ASSERTNULL(list->next->next);
     return 0;
@@ -205,19 +205,19 @@ static int test_acll_remove_1(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
-    ASSERTSTR("element 2", list->next->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
+    ASSERTSTR("element 2", (char *) list->next->next->payload);
 
     acll_t *tmp = list;
     list = acll_remove(list, tmp);
 
-    ASSERTSTR("element 1", list->payload);
-    ASSERTSTR("element 2", list->next->payload);
+    ASSERTSTR("element 1", (char *) list->payload);
+    ASSERTSTR("element 2", (char *) list->next->payload);
 
     ASSERTNULL(tmp->prev);
     ASSERTNULL(tmp->next);
-    ASSERTSTR("element 0", tmp->payload);
+    ASSERTSTR("element 0", (char *) tmp->payload);
 
     return 0;
 }
@@ -229,19 +229,19 @@ static int test_acll_remove_2(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
-    ASSERTSTR("element 2", list->next->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
+    ASSERTSTR("element 2", (char *) list->next->next->payload);
 
     acll_t *tmp = list->next;
     list = acll_remove(list, tmp);
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 2", list->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 2", (char *) list->next->payload);
 
     ASSERTNULL(tmp->prev);
     ASSERTNULL(tmp->next);
-    ASSERTSTR("element 1", tmp->payload);
+    ASSERTSTR("element 1", (char *) tmp->payload);
 
     return 0;
 }
@@ -253,19 +253,19 @@ static int test_acll_remove_3(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
-    ASSERTSTR("element 2", list->next->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
+    ASSERTSTR("element 2", (char *) list->next->next->payload);
 
     acll_t *tmp = list->next->next;
     list = acll_remove(list, tmp);
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
 
     ASSERTNULL(tmp->prev);
     ASSERTNULL(tmp->next);
-    ASSERTSTR("element 2", tmp->payload);
+    ASSERTSTR("element 2", (char *) tmp->payload);
 
     return 0;
 }
@@ -274,7 +274,7 @@ static int test_acll_remove_4(void *data) {
     acll_t *list = NULL;
 
     list = acll_append(list, "element 0");
-    ASSERTSTR("element 0", list->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
 
     acll_t *tmp = list;
     list = acll_remove(list, tmp);
@@ -282,7 +282,7 @@ static int test_acll_remove_4(void *data) {
     ASSERTNULL(list);
     ASSERTNULL(tmp->prev);
     ASSERTNULL(tmp->next);
-    ASSERTSTR("element 0", tmp->payload);
+    ASSERTSTR("element 0", (char *) tmp->payload);
 
     return 0;
 }
@@ -301,14 +301,14 @@ static int test_acll_delete_1(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
-    ASSERTSTR("element 2", list->next->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
+    ASSERTSTR("element 2", (char *) list->next->next->payload);
 
     list = acll_delete(list, list, NULL);
 
-    ASSERTSTR("element 1", list->payload);
-    ASSERTSTR("element 2", list->next->payload);
+    ASSERTSTR("element 1", (char *) list->payload);
+    ASSERTSTR("element 2", (char *) list->next->payload);
 
     return 0;
 }
@@ -320,14 +320,14 @@ static int test_acll_delete_2(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
-    ASSERTSTR("element 2", list->next->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
+    ASSERTSTR("element 2", (char *) list->next->next->payload);
 
     list = acll_delete(list, list->next, NULL);
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 2", list->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 2", (char *) list->next->payload);
 
     return 0;
 }
@@ -339,14 +339,14 @@ static int test_acll_delete_3(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
-    ASSERTSTR("element 2", list->next->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
+    ASSERTSTR("element 2", (char *) list->next->next->payload);
 
     list = acll_delete(list, list->next->next, NULL);
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
 
     return 0;
 }
@@ -355,7 +355,7 @@ static int test_acll_delete_4(void *data) {
     acll_t *list = NULL;
 
     list = acll_append(list, "element 0");
-    ASSERTSTR("element 0", list->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
 
     list = acll_delete(list, list, NULL);
     ASSERTNULL(list);
@@ -380,9 +380,9 @@ static int test_acll_clone_1(void *data) {
 
     ASSERTNOTNULL(clonedList);
 
-    ASSERTSTR("element 0", clonedList->payload);
-    ASSERTSTR("element 1", clonedList->next->payload);
-    ASSERTSTR("element 2", clonedList->next->next->payload);
+    ASSERTSTR("element 0", (char *) clonedList->payload);
+    ASSERTSTR("element 1", (char *) clonedList->next->payload);
+    ASSERTSTR("element 2", (char *) clonedList->next->next->payload);
 
     ASSERTNULL(list->prev);
     ASSERTNULL(clonedList->prev);
@@ -411,9 +411,9 @@ static int test_acll_clone_2(void *data) {
 
     ASSERTNOTNULL(clonedList);
 
-    ASSERTSTR("element 3", clonedList->payload);
-    ASSERTSTR("element 3", clonedList->next->payload);
-    ASSERTSTR("element 3", clonedList->next->next->payload);
+    ASSERTSTR("element 3", (char *) clonedList->payload);
+    ASSERTSTR("element 3", (char *) clonedList->next->payload);
+    ASSERTSTR("element 3", (char *) clonedList->next->next->payload);
 
     ASSERTNULL(list->prev);
     ASSERTNULL(clonedList->prev);
@@ -515,15 +515,15 @@ static int test_acll_sort_0(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 0");
 
-    ASSERTSTR("element 2", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
-    ASSERTSTR("element 0", list->next->next->payload);
+    ASSERTSTR("element 2", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
+    ASSERTSTR("element 0", (char *) list->next->next->payload);
 
     list = acll_sort(list, test_acll_sort_0_sub);
 
-    ASSERTSTR("element 0", list->payload);
-    ASSERTSTR("element 1", list->next->payload);
-    ASSERTSTR("element 2", list->next->next->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
+    ASSERTSTR("element 1", (char *) list->next->payload);
+    ASSERTSTR("element 2", (char *) list->next->next->payload);
 
     return 0;
 }
@@ -553,7 +553,7 @@ static int test_acll_find_1(void *data) {
 
     list = acll_find(list, test_acll_find_sub);
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 1", list->payload);
+    ASSERTSTR("element 1", (char *) list->payload);
 
     return 0;
 }
@@ -580,7 +580,7 @@ static int test_acll_find_3(void *data) {
 
     list = acll_find(list, NULL);
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 0", list->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
 
     return 0;
 }
@@ -609,7 +609,7 @@ static int test_acll_nextFilter_1(void *data) {
 
     list = acll_nextFilter(list, NULL);
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 1", list->payload);
+    ASSERTSTR("element 1", (char *) list->payload);
 
     return 0;
 }
@@ -623,7 +623,7 @@ static int test_acll_nextFilter_2(void *data) {
 
     list = acll_nextFilter(list, test_acll_nextFilter_sub);
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 2", list->payload);
+    ASSERTSTR("element 2", (char *) list->payload);
 
     return 0;
 }
@@ -652,7 +652,7 @@ static int test_acll_prevFilter_1(void *data) {
 
     list = acll_prevFilter(list->next->next, NULL);
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 1", list->payload);
+    ASSERTSTR("element 1", (char *) list->payload);
 
     return 0;
 }
@@ -666,7 +666,7 @@ static int test_acll_prevFilter_2(void *data) {
 
     list = acll_prevFilter(list->next->next, test_acll_prevFilter_sub);
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 0", list->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
 
     return 0;
 }
@@ -695,7 +695,7 @@ static int test_acll_firstFilter_1(void *data) {
 
     list = acll_firstFilter(list, NULL);
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 0", list->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
 
     return 0;
 }
@@ -709,7 +709,7 @@ static int test_acll_firstFilter_2(void *data) {
 
     list = acll_firstFilter(list->next->next, test_acll_firstFilter_sub);
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 2", list->payload);
+    ASSERTSTR("element 2", (char *) list->payload);
 
     return 0;
 }
@@ -738,7 +738,7 @@ static int test_acll_lastFilter_1(void *data) {
 
     list = acll_lastFilter(list, NULL);
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 2", list->payload);
+    ASSERTSTR("element 2", (char *) list->payload);
 
     return 0;
 }
@@ -752,7 +752,7 @@ static int test_acll_lastFilter_2(void *data) {
 
     list = acll_lastFilter(list, test_acll_lastFilter_sub);
     ASSERTNOTNULL(list);
-    ASSERTSTR("element 0", list->payload);
+    ASSERTSTR("element 0", (char *) list->payload);
 
     return 0;
 }
