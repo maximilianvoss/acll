@@ -774,6 +774,7 @@ int main(int argc, char **argv) {
     TESTCALL("test_acll_push_2", test_acll_push_2, NULL);
     TESTCALL("test_acll_count_0", test_acll_count_0, NULL);
     TESTCALL("test_acll_count_1", test_acll_count_1, NULL);
+    TESTCALL("test_acll_remove_0", test_acll_remove_0, NULL);
     TESTCALL("test_acll_remove_1", test_acll_remove_1, NULL);
     TESTCALL("test_acll_remove_2", test_acll_remove_2, NULL);
     TESTCALL("test_acll_remove_3", test_acll_remove_3, NULL);
