@@ -1,0 +1,3 @@
+[submodule "libs/casserts"]
+	path = libs/casserts
+	url = https://github.com/maximilianvoss/casserts.git
