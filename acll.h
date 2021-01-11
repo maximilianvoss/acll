@@ -50,14 +50,14 @@ uint8_t acll_in(const acll_t *acll, acll_t *element);
 
 acll_t *acll_sort(acll_t *acll, int (*payloadComperatorFunction)(void *payload1, void *payload2));
 
-acll_t *acll_find(const acll_t *acll, int (*payloadFilter)(void *payload));
+acll_t *acll_find(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input);
 
-acll_t *acll_nextFilter(const acll_t *acll, int (*payloadFilter)(void *payload));
+acll_t *acll_nextFilter(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input);
 
-acll_t *acll_prevFilter(const acll_t *acll, int (*payloadFilter)(void *payload));
+acll_t *acll_prevFilter(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input);
 
-acll_t *acll_firstFilter(const acll_t *acll, int (*payloadFilter)(void *payload));
+acll_t *acll_firstFilter(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input);
 
-acll_t *acll_lastFilter(const acll_t *acll, int (*payloadFilter)(void *payload));
+acll_t *acll_lastFilter(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input);
 
 #endif

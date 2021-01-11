@@ -528,8 +528,8 @@ static int test_acll_sort_0(void *data) {
     return 0;
 }
 
-static int test_acll_find_sub(void *payload) {
-    if (!strcmp((char *) payload, "element 1")) {
+static int test_acll_find_sub(void *payload, void *input) {
+    if (!strcmp((char *) payload, (char *) input)) {
         return 1;
     }
     return 0;
@@ -538,7 +538,7 @@ static int test_acll_find_sub(void *payload) {
 static int test_acll_find_0(void *data) {
     acll_t *list = NULL;
 
-    list = acll_find(NULL, test_acll_find_sub);
+    list = acll_find(NULL, test_acll_find_sub, "element 1");
     ASSERTNULL(list);
 
     return 0;
@@ -551,7 +551,7 @@ static int test_acll_find_1(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    list = acll_find(list, test_acll_find_sub);
+    list = acll_find(list, test_acll_find_sub, "element 1");
     ASSERTNOTNULL(list);
     ASSERTSTR("element 1", (char *) list->payload);
 
@@ -565,7 +565,7 @@ static int test_acll_find_2(void *data) {
     list = acll_append(list, "element 2");
     list = acll_append(list, "element 3");
 
-    list = acll_find(list, test_acll_find_sub);
+    list = acll_find(list, test_acll_find_sub, "element 1");
     ASSERTNULL(list);
 
     return 0;
@@ -578,14 +578,14 @@ static int test_acll_find_3(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    list = acll_find(list, NULL);
+    list = acll_find(list, NULL, "element 1");
     ASSERTNOTNULL(list);
     ASSERTSTR("element 0", (char *) list->payload);
 
     return 0;
 }
 
-static int test_acll_nextFilter_sub(void *payload) {
+static int test_acll_nextFilter_sub(void *payload, void *input) {
     if (!strcmp((char *) payload, "element 2")) {
         return 1;
     }
@@ -594,7 +594,7 @@ static int test_acll_nextFilter_sub(void *payload) {
 
 static int test_acll_nextFilter_0(void *data) {
     acll_t *list = NULL;
-    list = acll_nextFilter(NULL, NULL);
+    list = acll_nextFilter(NULL, NULL, NULL);
     ASSERTNULL(list);
 
     return 0;
@@ -607,7 +607,7 @@ static int test_acll_nextFilter_1(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    list = acll_nextFilter(list, NULL);
+    list = acll_nextFilter(list, NULL, NULL);
     ASSERTNOTNULL(list);
     ASSERTSTR("element 1", (char *) list->payload);
 
@@ -621,15 +621,15 @@ static int test_acll_nextFilter_2(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    list = acll_nextFilter(list, test_acll_nextFilter_sub);
+    list = acll_nextFilter(list, test_acll_nextFilter_sub, NULL);
     ASSERTNOTNULL(list);
     ASSERTSTR("element 2", (char *) list->payload);
 
     return 0;
 }
 
-static int test_acll_prevFilter_sub(void *payload) {
-    if (!strcmp((char *) payload, "element 0")) {
+static int test_acll_prevFilter_sub(void *payload, void *input) {
+    if (!strcmp((char *) payload, (char *) input)) {
         return 1;
     }
     return 0;
@@ -637,7 +637,7 @@ static int test_acll_prevFilter_sub(void *payload) {
 
 static int test_acll_prevFilter_0(void *data) {
     acll_t *list = NULL;
-    list = acll_prevFilter(NULL, NULL);
+    list = acll_prevFilter(NULL, NULL, "element 0");
     ASSERTNULL(list);
 
     return 0;
@@ -650,7 +650,7 @@ static int test_acll_prevFilter_1(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    list = acll_prevFilter(list->next->next, NULL);
+    list = acll_prevFilter(list->next->next, NULL, "element 0");
     ASSERTNOTNULL(list);
     ASSERTSTR("element 1", (char *) list->payload);
 
@@ -664,14 +664,14 @@ static int test_acll_prevFilter_2(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    list = acll_prevFilter(list->next->next, test_acll_prevFilter_sub);
+    list = acll_prevFilter(list->next->next, test_acll_prevFilter_sub, "element 0");
     ASSERTNOTNULL(list);
     ASSERTSTR("element 0", (char *) list->payload);
 
     return 0;
 }
 
-static int test_acll_firstFilter_sub(void *payload) {
+static int test_acll_firstFilter_sub(void *payload, void *input) {
     if (!strcmp((char *) payload, "element 2")) {
         return 1;
     }
@@ -680,7 +680,7 @@ static int test_acll_firstFilter_sub(void *payload) {
 
 static int test_acll_firstFilter_0(void *data) {
     acll_t *list = NULL;
-    list = acll_firstFilter(NULL, NULL);
+    list = acll_firstFilter(NULL, NULL, NULL);
     ASSERTNULL(list);
 
     return 0;
@@ -693,7 +693,7 @@ static int test_acll_firstFilter_1(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    list = acll_firstFilter(list, NULL);
+    list = acll_firstFilter(list, NULL, NULL);
     ASSERTNOTNULL(list);
     ASSERTSTR("element 0", (char *) list->payload);
 
@@ -707,15 +707,15 @@ static int test_acll_firstFilter_2(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    list = acll_firstFilter(list->next->next, test_acll_firstFilter_sub);
+    list = acll_firstFilter(list->next->next, test_acll_firstFilter_sub, NULL);
     ASSERTNOTNULL(list);
     ASSERTSTR("element 2", (char *) list->payload);
 
     return 0;
 }
 
-static int test_acll_lastFilter_sub(void *payload) {
-    if (!strcmp((char *) payload, "element 0")) {
+static int test_acll_lastFilter_sub(void *payload, void *input) {
+    if (!strcmp((char *) payload, (char *) input)) {
         return 1;
     }
     return 0;
@@ -723,7 +723,7 @@ static int test_acll_lastFilter_sub(void *payload) {
 
 static int test_acll_lastFilter_0(void *data) {
     acll_t *list = NULL;
-    list = acll_lastFilter(NULL, NULL);
+    list = acll_lastFilter(NULL, NULL, "element 0");
     ASSERTNULL(list);
 
     return 0;
@@ -736,7 +736,7 @@ static int test_acll_lastFilter_1(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    list = acll_lastFilter(list, NULL);
+    list = acll_lastFilter(list, NULL, "element 0");
     ASSERTNOTNULL(list);
     ASSERTSTR("element 2", (char *) list->payload);
 
@@ -750,7 +750,7 @@ static int test_acll_lastFilter_2(void *data) {
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 2");
 
-    list = acll_lastFilter(list, test_acll_lastFilter_sub);
+    list = acll_lastFilter(list, test_acll_lastFilter_sub, "element 0");
     ASSERTNOTNULL(list);
     ASSERTSTR("element 0", (char *) list->payload);
 

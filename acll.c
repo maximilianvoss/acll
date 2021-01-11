@@ -299,7 +299,7 @@ acll_t *acll_sort(acll_t *acll, int (*payloadComperatorFunction)(void *payload1,
     return acll_first(list);
 }
 
-acll_t *acll_find(const acll_t *acll, int (*payloadFilter)(void *payload)) {
+acll_t *acll_find(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input) {
     if (acll == NULL) {
         return NULL;
     }
@@ -310,7 +310,7 @@ acll_t *acll_find(const acll_t *acll, int (*payloadFilter)(void *payload)) {
 
     acll_t *ptr = acll_first(acll);
     while (ptr != NULL) {
-        if (payloadFilter(ptr->payload)) {
+        if (payloadFilter(ptr->payload, input)) {
             return ptr;
         }
         ptr = ptr->next;
@@ -318,7 +318,7 @@ acll_t *acll_find(const acll_t *acll, int (*payloadFilter)(void *payload)) {
     return NULL;
 }
 
-acll_t *acll_nextFilter(const acll_t *acll, int (*payloadFilter)(void *payload)) {
+acll_t *acll_nextFilter(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input) {
     if (acll == NULL) {
         return NULL;
     }
@@ -328,7 +328,7 @@ acll_t *acll_nextFilter(const acll_t *acll, int (*payloadFilter)(void *payload))
 
     acll_t *ptr = (acll_t *) acll;
     while (ptr != NULL) {
-        if (payloadFilter(ptr->payload)) {
+        if (payloadFilter(ptr->payload, input)) {
             return ptr;
         }
         ptr = ptr->next;
@@ -336,7 +336,7 @@ acll_t *acll_nextFilter(const acll_t *acll, int (*payloadFilter)(void *payload))
     return NULL;
 }
 
-acll_t *acll_prevFilter(const acll_t *acll, int (*payloadFilter)(void *payload)) {
+acll_t *acll_prevFilter(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input) {
     if (acll == NULL) {
         return NULL;
     }
@@ -346,7 +346,7 @@ acll_t *acll_prevFilter(const acll_t *acll, int (*payloadFilter)(void *payload))
 
     acll_t *ptr = (acll_t *) acll;
     while (ptr != NULL) {
-        if (payloadFilter(ptr->payload)) {
+        if (payloadFilter(ptr->payload, input)) {
             return ptr;
         }
         ptr = ptr->prev;
@@ -354,7 +354,7 @@ acll_t *acll_prevFilter(const acll_t *acll, int (*payloadFilter)(void *payload))
     return NULL;
 }
 
-acll_t *acll_firstFilter(const acll_t *acll, int (*payloadFilter)(void *payload)) {
+acll_t *acll_firstFilter(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input) {
     if (acll == NULL) {
         return NULL;
     }
@@ -365,7 +365,7 @@ acll_t *acll_firstFilter(const acll_t *acll, int (*payloadFilter)(void *payload)
 
     acll_t *ptr = acll_first(acll);
     while (ptr != NULL) {
-        if (payloadFilter(ptr->payload)) {
+        if (payloadFilter(ptr->payload, input)) {
             return ptr;
         }
         ptr = ptr->next;
@@ -373,7 +373,7 @@ acll_t *acll_firstFilter(const acll_t *acll, int (*payloadFilter)(void *payload)
     return NULL;
 }
 
-acll_t *acll_lastFilter(const acll_t *acll, int (*payloadFilter)(void *payload)) {
+acll_t *acll_lastFilter(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input) {
     if (acll == NULL) {
         return NULL;
     }
@@ -385,7 +385,7 @@ acll_t *acll_lastFilter(const acll_t *acll, int (*payloadFilter)(void *payload))
     acll_t *ptr = acll_first(acll);
     acll_t *last = NULL;
     while (ptr != NULL) {
-        if (payloadFilter(ptr->payload)) {
+        if (payloadFilter(ptr->payload, input)) {
             last = ptr;
         }
         ptr = ptr->next;
