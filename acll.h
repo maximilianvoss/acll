@@ -48,7 +48,7 @@ void acll_free(acll_t *acll, void (*payloadFreeFunction)(void *payload));
 
 uint8_t acll_in(const acll_t *acll, acll_t *element);
 
-acll_t *acll_sort(acll_t *acll, int (*payloadComperatorFunction)(void *payload1, void *payload2));
+acll_t *acll_sort(acll_t *acll, int (*payloadComparatorFunction)(void *payload1, void *payload2));
 
 acll_t *acll_find(const acll_t *acll, int (*payloadFilter)(void *payload, void *input), void *input);
 

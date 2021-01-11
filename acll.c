@@ -234,7 +234,7 @@ uint8_t acll_in(const acll_t *acll, acll_t *element) {
     return 0;
 }
 
-acll_t *acll_sort(acll_t *acll, int (*payloadComperatorFunction)(void *payload1, void *payload2)) {
+acll_t *acll_sort(acll_t *acll, int (*payloadComparatorFunction)(void *payload1, void *payload2)) {
     if (acll == NULL) {
         return NULL;
     }
@@ -246,7 +246,7 @@ acll_t *acll_sort(acll_t *acll, int (*payloadComperatorFunction)(void *payload1,
 
         acll_t *check = cur->prev;
         while (check != NULL) {
-            if (payloadComperatorFunction(check->payload, cur->payload) < 0) {
+            if (payloadComparatorFunction(check->payload, cur->payload) < 0) {
                 break;
             }
             check = check->prev;
