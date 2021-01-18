@@ -567,16 +567,22 @@ static int test_acll_sort_0(void *data) {
     list = acll_append(list, "element 2");
     list = acll_append(list, "element 1");
     list = acll_append(list, "element 0");
+    list = acll_append(list, "element 3");
+    list = acll_append(list, "element 2");
 
     ASSERTSTR("element 2", (char *) list->payload);
     ASSERTSTR("element 1", (char *) list->next->payload);
     ASSERTSTR("element 0", (char *) list->next->next->payload);
+    ASSERTSTR("element 3", (char *) list->next->next->next->payload);
+    ASSERTSTR("element 2", (char *) list->next->next->next->next->payload);
 
     list = acll_sort(list, test_acll_sort_0_sub);
 
     ASSERTSTR("element 0", (char *) list->payload);
     ASSERTSTR("element 1", (char *) list->next->payload);
     ASSERTSTR("element 2", (char *) list->next->next->payload);
+    ASSERTSTR("element 2", (char *) list->next->next->next->payload);
+    ASSERTSTR("element 3", (char *) list->next->next->next->next->payload);
 
     return 0;
 }
