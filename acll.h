@@ -28,6 +28,8 @@ typedef struct acll_s {
 
 acll_t *acll_append(const acll_t *acll, const void *payload);
 
+acll_t *acll_concat(acll_t *acll1, acll_t *acll2);
+
 acll_t *acll_first(const acll_t *acll);
 
 acll_t *acll_last(const acll_t *acll);

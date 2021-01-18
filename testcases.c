@@ -47,6 +47,59 @@ static int test_acll_append_2(void *data) {
     return 0;
 }
 
+static int test_acll_concat_0(void *data) {
+    acll_t *list1 = NULL;
+    acll_t *list2 = NULL;
+    acll_t *result;
+    result = acll_concat(list1, list2);
+    ASSERTNULL(result);
+    return 0;
+}
+
+static int test_acll_concat_1(void *data) {
+    acll_t *list1 = NULL;
+    acll_t *list2 = NULL;
+    acll_t *result;
+    list1 = acll_append(list1, "element 0");
+    result = acll_concat(list1, list2);
+    ASSERTNOTNULL(result);
+    ASSERTSTR("element 0", (char *) result->payload);
+    ASSERTNULL(result->next);
+    ASSERTNULL(result->prev);
+    return 0;
+}
+
+static int test_acll_concat_2(void *data) {
+    acll_t *list1 = NULL;
+    acll_t *list2 = NULL;
+    acll_t *result;
+    list2 = acll_append(list2, "element 1");
+    result = acll_concat(list1, list2);
+    ASSERTNOTNULL(result);
+    ASSERTSTR("element 1", (char *) result->payload);
+    ASSERTNULL(result->next);
+    ASSERTNULL(result->prev);
+    return 0;
+}
+
+static int test_acll_concat_3(void *data) {
+    acll_t *list1 = NULL;
+    acll_t *list2 = NULL;
+    acll_t *result;
+    list1 = acll_append(list1, "element 0");
+    list2 = acll_append(list2, "element 1");
+    result = acll_concat(list1, list2);
+    ASSERTNOTNULL(result);
+    ASSERTSTR("element 0", (char *) result->payload);
+    ASSERTSTR("element 1", (char *) result->next->payload);
+    ASSERTNULL(result->next->next);
+    ASSERTNULL(result->next->next);
+    ASSERTNULL(result->prev);
+    ASSERTNOTNULL(result->next->prev);
+    ASSERTPTREQUAL(result->next->prev, result);
+    return 0;
+}
+
 static int test_acll_first_0(void *data) {
     acll_t *list = acll_first(NULL);
     ASSERTNULL(list);
@@ -761,6 +814,10 @@ int main(int argc, char **argv) {
     TESTCALL("test_acll_append_0", test_acll_append_0, NULL);
     TESTCALL("test_acll_append_1", test_acll_append_1, NULL);
     TESTCALL("test_acll_append_2", test_acll_append_2, NULL);
+    TESTCALL("test_acll_concat_0", test_acll_concat_0, NULL);
+    TESTCALL("test_acll_concat_1", test_acll_concat_1, NULL);
+    TESTCALL("test_acll_concat_2", test_acll_concat_2, NULL);
+    TESTCALL("test_acll_concat_3", test_acll_concat_3, NULL);
     TESTCALL("test_acll_first_0", test_acll_first_0, NULL);
     TESTCALL("test_acll_first_1", test_acll_first_1, NULL);
     TESTCALL("test_acll_first_2", test_acll_first_2, NULL);

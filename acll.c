@@ -45,6 +45,23 @@ acll_t *acll_append(const acll_t *acll, const void *payload) {
     return (acll_t *) acll;
 }
 
+acll_t *acll_concat(acll_t *acll1, acll_t *acll2) {
+    if (acll1 == NULL) {
+        return acll2;
+    }
+    if (acll2 == NULL) {
+        return acll1;
+    }
+
+    acll_t *ptr = acll1;
+    while (ptr->next != NULL) {
+        ptr = ptr->next;
+    }
+    ptr->next = acll2;
+    acll2->prev = ptr;
+    return acll1;
+}
+
 acll_t *acll_first(const acll_t *acll) {
     acll_t *ptr = (acll_t *) acll;
     while (ptr != NULL) {
