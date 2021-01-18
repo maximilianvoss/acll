@@ -326,7 +326,7 @@ acll_t *acll_nextFilter(const acll_t *acll, int (*payloadFilter)(void *payload, 
         return acll->next;
     }
 
-    acll_t *ptr = (acll_t *) acll;
+    acll_t *ptr = (acll_t *) acll->next;
     while (ptr != NULL) {
         if (payloadFilter(ptr->payload, input)) {
             return ptr;
@@ -344,7 +344,7 @@ acll_t *acll_prevFilter(const acll_t *acll, int (*payloadFilter)(void *payload, 
         return acll->prev;
     }
 
-    acll_t *ptr = (acll_t *) acll;
+    acll_t *ptr = (acll_t *) acll->prev;
     while (ptr != NULL) {
         if (payloadFilter(ptr->payload, input)) {
             return ptr;
