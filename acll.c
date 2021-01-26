@@ -16,6 +16,7 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 #include "acll.h"
 
 static inline acll_t *buildPayloadWrapper(const void *payload);
