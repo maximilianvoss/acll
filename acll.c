@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#include <memory.h>
+#include <stdlib.h>
 #include "acll.h"
 
 static inline acll_t *buildPayloadWrapper(const void *payload);
