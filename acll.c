@@ -1,3 +1,4 @@
+#include <__wctype.h>
 /*
  * Copyright 2021 Maximilian Voss (maximilian@voss.rocks)
  *
@@ -343,7 +344,7 @@ acll_t *acll_nextFilter(const acll_t *acll, int (*payloadFilter)(void *payload, 
         return acll->next;
     }
 
-    acll_t *ptr = (acll_t *) acll->next;
+    acll_t *ptr = acll->next;
     while (ptr != NULL) {
         if (payloadFilter(ptr->payload, input)) {
             return ptr;
@@ -361,7 +362,7 @@ acll_t *acll_prevFilter(const acll_t *acll, int (*payloadFilter)(void *payload, 
         return acll->prev;
     }
 
-    acll_t *ptr = (acll_t *) acll->prev;
+    acll_t *ptr = acll->prev;
     while (ptr != NULL) {
         if (payloadFilter(ptr->payload, input)) {
             return ptr;
@@ -377,7 +378,7 @@ acll_t *acll_firstFilter(const acll_t *acll, int (*payloadFilter)(void *payload,
     }
 
     if (payloadFilter == NULL) {
-        return acll_first(acll);;
+        return acll_first(acll);
     }
 
     acll_t *ptr = acll_first(acll);
@@ -396,7 +397,7 @@ acll_t *acll_lastFilter(const acll_t *acll, int (*payloadFilter)(void *payload, 
     }
 
     if (payloadFilter == NULL) {
-        return acll_last(acll);;
+        return acll_last(acll);
     }
 
     acll_t *ptr = acll_first(acll);
