@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef ACLL_ACLL_H
-#define ACLL_ACLL_H
+#ifndef _ACLL_H
+#define _ACLL_H
 
 #include <stdlib.h>
 #include <stdint.h>
