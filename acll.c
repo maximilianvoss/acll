@@ -265,7 +265,7 @@ acll_t *acll_sort(acll_t *acll, int (*payloadComparatorFunction)(void *payload1,
 
         acll_t *check = cur->prev;
         while (check != NULL) {
-            if (payloadComparatorFunction(check->payload, cur->payload) < 0) {
+            if (payloadComparatorFunction(check->payload, cur->payload) <= 0) {
                 break;
             }
             check = check->prev;
