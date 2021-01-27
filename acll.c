@@ -1,4 +1,3 @@
-#include <__wctype.h>
 /*
  * Copyright 2021 Maximilian Voss (maximilian@voss.rocks)
  *
