@@ -3,5 +3,10 @@ language: c
 compiler:
   - gcc
 
+before_script:
+  - git clone https://github.com/maximilianvoss/casserts.git
+  - cd casserts
+  - cmake -G "Unix Makefiles" && make && sudo make install
+
 script:
   - cmake -G "Unix Makefiles" && make && make test
