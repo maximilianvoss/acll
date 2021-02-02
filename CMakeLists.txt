@@ -2,8 +2,15 @@ cmake_minimum_required(VERSION 3.0)
 project(acll C)
 
 set(CMAKE_C_STANDARD 99)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
-include_directories(libs/casserts)
+find_package(CASSERTS REQUIRED)
+
+set(INCLUDE_DIRECTORIES
+        ${INCLUDE_DIRECTORIES}
+        ${CASSERTS_INCLUDE_DIR}
+        )
+include_directories(${INCLUDE_DIRECTORIES})
 
 if (NOT TARGET acll)
     add_library(acll acll.c acll.h)
