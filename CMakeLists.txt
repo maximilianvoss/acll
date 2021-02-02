@@ -10,6 +10,11 @@ if (NOT TARGET acll)
     add_executable(acll_testcases testcases.c)
     target_link_libraries(acll_testcases acll)
 
+    # Install
+    install(TARGETS acll DESTINATION libs)
+    install(FILES acll.h DESTINATION include)
+
+    # Tests
     enable_testing()
 
     add_test(NAME test_acll_append_0 COMMAND acll_testcases test_acll_append_0)
