@@ -18,7 +18,7 @@ if (NOT TARGET acll)
     target_link_libraries(acll_testcases acll)
 
     # Install
-    install(TARGETS acll DESTINATION libs)
+    install(TARGETS acll DESTINATION lib)
     install(FILES acll.h DESTINATION include)
 
     # Tests
