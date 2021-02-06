@@ -4,6 +4,7 @@ find_path(ACLL_INCLUDE_DIR_INTERNAL acll.h
         HINTS
         include
         )
+mark_as_advanced(ACLL_INCLUDE_DIR_INTERNAL)
 
 FIND_LIBRARY(ACLL_LIBRARIES_INTERNAL
         NAMES acll
