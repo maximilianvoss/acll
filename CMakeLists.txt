@@ -4,6 +4,10 @@ project(acll C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
+if (NOT nofpic)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O3 -fPIC")
+endif ()
+
 find_package(CASSERTS REQUIRED)
 
 set(INCLUDE_DIRECTORIES
